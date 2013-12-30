@@ -1,5 +1,7 @@
 # Angular RSS Reader
 
+LIVE DEMO: http://cmmartin.github.io/Angular-RSS-Reader/#/
+
 A responsive, client-side Angular.js sample application that implements a RSS Reader
 
 Technologies:
@@ -10,7 +12,7 @@ Technologies:
 
 Project files:
 
-    /app - application files
+    /app
       index.html                  - project web root
       /assets                     - dist folder of concatenated styles and scripts
         app.css                   - all css files concatenated
@@ -36,9 +38,6 @@ Project files:
         homePageSpec.js           - homePage module unit tests (16)
       /e2e
         homePageSpec.js           - homePage module e2e tests (TODO)
-
-
-    test - test specs and configs
 
 ## Installation
 
