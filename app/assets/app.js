@@ -32066,19 +32066,19 @@ google.loader.rpl({":scriptaculous":{"versions":{":1.8.3":{"uncompressed":"scrip
 
 	$scope.selectedEntry = null;
 
-  Feeds.get().then(function(feeds) {
-  	$scope.feeds = feeds;
-  }, function(error) {
-  	console.log(error);
-  });
+	Feeds.get().then(function(feeds) {
+		$scope.feeds = feeds;
+	}, function(error) {
+		console.log(error);
+	});
 
-  $scope.$on('ENTRY_SELECTED', function(event, entry) {
-  	$scope.selectedEntry = entry;
-  });
+	$scope.$on('ENTRY_SELECTED', function(event, entry) {
+		$scope.selectedEntry = entry;
+	});
 
-  $scope.$on('ENTRY_DESELECTED', function() {
-  	$scope.selectedEntry = null;
-  });
+	$scope.$on('ENTRY_DESELECTED', function() {
+		$scope.selectedEntry = null;
+	});
 })
 
 /*
@@ -32087,11 +32087,11 @@ google.loader.rpl({":scriptaculous":{"versions":{":1.8.3":{"uncompressed":"scrip
  */
 .factory('FeedSources', function () {
 	return [
-    {url: 'http://feeds.feedburner.com/TechCrunch/'},
-    {url: 'http://feeds.arstechnica.com/arstechnica/index'},
-    {url: 'http://feeds.feedburner.com/GoogleEarthBlog'},
-    {url: 'http://feeds.gawker.com/gizmodo/full'}
-  ];
+		{url: 'http://feeds.feedburner.com/TechCrunch/'},
+		{url: 'http://feeds.arstechnica.com/arstechnica/index'},
+		{url: 'http://feeds.feedburner.com/GoogleEarthBlog'},
+		{url: 'http://feeds.gawker.com/gizmodo/full'}
+	];
 })
 
 /*
@@ -32131,20 +32131,20 @@ google.loader.rpl({":scriptaculous":{"versions":{":1.8.3":{"uncompressed":"scrip
  */
 .directive('feed', function () {
 	return {
-    restrict: 'E',
-    template: '<div>' +
-          			'<h5 class="feed-title">{{model.title}}</h5>' + 
-    						'<div class="feed">' +
-    							'<div class="entries" ng-repeat="entry in model.entries">' +
-    								'<entry model="entry"></entry>' +
-    							'</div>' +
-    						'</div>' +
-    					'</div>',
-    replace: true,
-    scope: {
-    	model: '='
-    }
-  };
+		restrict: 'E',
+		template: '<div>' +
+								'<h5 class="feed-title">{{model.title}}</h5>' + 
+								'<div class="feed">' +
+									'<div class="entries" ng-repeat="entry in model.entries">' +
+										'<entry model="entry"></entry>' +
+									'</div>' +
+								'</div>' +
+							'</div>',
+		replace: true,
+		scope: {
+			model: '='
+		}
+	};
 })
 
 /*
@@ -32155,40 +32155,40 @@ google.loader.rpl({":scriptaculous":{"versions":{":1.8.3":{"uncompressed":"scrip
  */
 .directive('entry', function ($animate) {
 	return {
-    restrict: 'E',
-    replace: true,
-    template: '<div ng-click="select()" class="entry">' +
-    						'<div class="entry-inner">' +
-      						'<h3 class="entry-title">{{model.title}}</h3>' + 
-      						'<p class="entry-preview">{{model.contentSnippet}}</p>' +
-      						'<p>posted {{model.publishedDate |  timeago}}</p>' +
-      					'</div>' +
-    					'</div>',
-    scope: {
-    	model: '='
-    },
-    link: function(scope, element, attrs) {
+		restrict: 'E',
+		replace: true,
+		template: '<div ng-click="select()" class="entry">' +
+								'<div class="entry-inner">' +
+									'<h3 class="entry-title">{{model.title}}</h3>' + 
+									'<p class="entry-preview">{{model.contentSnippet}}</p>' +
+									'<p>posted {{model.publishedDate |  timeago}}</p>' +
+								'</div>' +
+							'</div>',
+		scope: {
+			model: '='
+		},
+		link: function(scope, element, attrs) {
 
-    	scope.select = function() {
-	    	scope.$emit('ENTRY_SELECTED', scope.model);
-	    }
+			scope.select = function() {
+				scope.$emit('ENTRY_SELECTED', scope.model);
+			}
 
-    	/* Insanity alert: The below code is only necessary due to the inconsistencies in providing
+			/* Insanity alert: The below code is only necessary due to the inconsistencies in providing
 			 * image urls in RSS entries. First, we look for a designated image url, if none, we
 			 * pull the first image's src from the entry's content. Finally, we check
 			 * if the src has a valid image file extension to avoid displaying an ad
 			 */
-    	var imgUrl = (scope.model.mediaGroups)
-	      		? scope.model.mediaGroups[0].contents[0].url
-	      		: $(scope.model.content).find('img')[0].src,
-	      	allowedExtensions = ['jpg', 'png', 'gif', 'peg'],
-	      	fileExtension = imgUrl.slice(imgUrl.length - 3, imgUrl.length);
+			var imgUrl = (scope.model.mediaGroups)
+						? scope.model.mediaGroups[0].contents[0].url
+						: $(scope.model.content).find('img')[0].src,
+					allowedExtensions = ['jpg', 'png', 'gif', 'peg'],
+					fileExtension = imgUrl.slice(imgUrl.length - 3, imgUrl.length);
 
-    	if (allowedExtensions.indexOf(fileExtension) > -1) {
-    		$(element).css('background', 'url(' + imgUrl + ') center center');
-    	}
-    }
-  };
+			if (allowedExtensions.indexOf(fileExtension) > -1) {
+				$(element).css('background', 'url(' + imgUrl + ') center center');
+			}
+		}
+	};
 })
 
 /*
@@ -32199,53 +32199,53 @@ google.loader.rpl({":scriptaculous":{"versions":{":1.8.3":{"uncompressed":"scrip
  */
 .directive('modal', function () {
 	return {
-    restrict: 'C',
-    replace: true,
-    template: '<div ng-show="model">' +
-							  '<div class="modal-dialog">' +
-							    '<div class="modal-content">' +
-							      '<div class="modal-header">' +
-							        '<button type="button" class="close" ng-click="deselect()" aria-hidden="true">&times;</button>' +
-							        '<h3 class="modal-title"><a ng-href="{{model.link}}" target="_blank">{{model.title}}</a></h3>' +
-							        '<p><small>{{model.publishedDate | formattedFullDate}}<small></p>' +
-							      '</div>' +
-							      '<div class="modal-body"></div>' +
-							    '</div>' +
-							  '</div>' +
+		restrict: 'C',
+		replace: true,
+		template: '<div ng-show="model">' +
+								'<div class="modal-dialog">' +
+									'<div class="modal-content">' +
+										'<div class="modal-header">' +
+											'<button type="button" class="close" ng-click="deselect()" aria-hidden="true">&times;</button>' +
+											'<h3 class="modal-title"><a ng-href="{{model.link}}" target="_blank">{{model.title}}</a></h3>' +
+											'<p><small>{{model.publishedDate | formattedFullDate}}<small></p>' +
+										'</div>' +
+										'<div class="modal-body"></div>' +
+									'</div>' +
+								'</div>' +
 							'</div>',
-    scope: {     	
-    	model: '='
-    },
-    link: function(scope, element, attrs) {
+		scope: {     	
+			model: '='
+		},
+		link: function(scope, element, attrs) {
 
-    	scope.$watch('model', function() {
-    		if (scope.model) {
-    			// render as html
-    			element.find('.modal-body').html(scope.model.content);
-    		}
-    	});
+			scope.$watch('model', function() {
+				if (scope.model) {
+					// render as html
+					element.find('.modal-body').html(scope.model.content);
+				}
+			});
 
-    	scope.deselect = function() {
-    		scope.$emit('ENTRY_DESELECTED');
-    	}
-    }
-  };
+			scope.deselect = function() {
+				scope.$emit('ENTRY_DESELECTED');
+			}
+		}
+	};
 })
 
 .directive('fullscreen', function () {
 	return {
-    restrict: 'A',
-    link: function(scope, element) {
-    	element.bind('click', function() {
-    		var el = document.documentElement,
-       			request = el.requestFullScreen 
-      									|| el.webkitRequestFullScreen 
-      									|| el.mozRequestFullScreen
-      									|| angular.noop; // browser not supported. do nothing
-  			request.call(el);
-    	});
-    }
-  };
+		restrict: 'A',
+		link: function(scope, element) {
+			element.bind('click', function() {
+				var el = document.documentElement,
+						request = el.requestFullScreen 
+												|| el.webkitRequestFullScreen 
+												|| el.mozRequestFullScreen
+												|| angular.noop; // browser not supported. do nothing
+				request.call(el);
+			});
+		}
+	};
 })
 
 /*
@@ -32254,7 +32254,7 @@ google.loader.rpl({":scriptaculous":{"versions":{":1.8.3":{"uncompressed":"scrip
  */
 .filter('formattedFullDate', function() {
 	return function(d) {
-  	return d ? moment(d).format('MMMM Do YYYY, h:mm a') : '';
+		return d ? moment(d).format('MMMM Do YYYY, h:mm a') : '';
 	};
 })
 
@@ -32263,9 +32263,9 @@ google.loader.rpl({":scriptaculous":{"versions":{":1.8.3":{"uncompressed":"scrip
  * it should convert a date to the amount of time from now
  */
 .filter('timeago', function() {
-  return function(d) {
-    return d ? moment(d).fromNow() : '';
-  };
+	return function(d) {
+		return d ? moment(d).fromNow() : '';
+	};
 });
 
 

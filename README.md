@@ -1,6 +1,6 @@
-# Yearofmoo AngularJS Seed Repo
+# Angular RSS Reader
 
-A starter AngularJS repository for getting started with AngularJS. Includes helpful unit testing tools, Protractor integration and coverage testing.
+A sample Angular.js application that implements a RSS Reader
 
 ## Installation
 
