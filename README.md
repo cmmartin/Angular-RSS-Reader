@@ -2,43 +2,42 @@
 
 A responsive, client-side Angular.js sample application that implements a RSS Reader
 
+LIVE DEMO: http://cmmartin.github.io/Angular-RSS-Reader/#/
+
 Technologies:
 
-  Angular.js
-  Google Feed API
-  Twitter Bootstrap
+    Angular.js
+    Google Feed API
+    Twitter Bootstrap
 
 Project files:
 
-  /app - application files
-    index.html                  - project web root
-    /assets                     - dist folder of concatenated styles and scripts
-      app.css                   - all css files concatenated
-      app.js                    - all javascript files concatenated
-    /components                 - external libraries
-      angular.js
-      jquery.js
-      moment.js                 - date formatting
-    /scripts                    - javascript dev files
-      app.js                    - angular config
-      homePage.js               - homePage module (ctrl, services, directives, filters)
-    /styles - css dev files
-      app.css                   - application specific styles
-      animation.css             - css animations
-      bootstrap-theme.css       - my bootstrap overrides
-      bootstrap.css             - Twitter Bootstrap
-    /templates                  - ng-view templates
-      home.html                 - homePage html template
-  /test
-    karma-unit.conf.js          - karma unit test config
-    protractor.conf.js          - protractor e2e test config
-    /unit - unit tests
-      homePageSpec.js           - homePage module unit tests (16)
-    /e2e
-      homePageSpec.js           - homePage module e2e tests (TODO)
-
-
-    test - test specs and configs
+    /app
+      index.html                  - project web root
+      /assets
+        app.css                   - all css files concatenated
+        app.js                    - all javascript files concatenated
+      /components
+        angular.js
+        jquery.js
+        moment.js                 - date formatting
+      /scripts
+        app.js                    - angular config
+        homePage.js               - homePage module (ctrl, services, directives, filters)
+      /styles
+        app.css                   - application specific styles
+        animation.css             - css animations
+        bootstrap-theme.css       - my bootstrap overrides
+        bootstrap.css             - Twitter Bootstrap
+      /templates
+        home.html                 - homePage html template
+    /test
+      karma-unit.conf.js          - karma unit test config
+      protractor.conf.js          - protractor e2e test config
+      /unit
+        homePageSpec.js           - homePage module unit tests (16)
+      /e2e
+        homePageSpec.js           - homePage module e2e tests (TODO)
 
 ## Installation
 
