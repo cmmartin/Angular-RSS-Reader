@@ -1,0 +1,23 @@
+
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.modal.ng-hide-add {
+  opacity:1;  
+  -webkit-animation:fadeIn ease-in 1;  /* use the ease-in animation and repeat only once */
+  -moz-animation:fadeIn ease-in 1;
+  animation:fadeIn ease-in 1;
+
+  -webkit-animation-fill-mode:forwards;  /* the animation should move forwards to opacity: 1 */
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:0.25s;   /* the animation will last for 1 second */
+  -moz-animation-duration:0.25s;
+  animation-duration:0.25s;
+}
+
+.modal.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+}
