@@ -1,6 +1,6 @@
 angular.module('myApp', ['ngRoute', 'app.homePage'])
 
-  .constant('TPL_PATH', '/templates')
+  .constant('TPL_PATH', '/Angular-RSS-Reader/templates')
 
   .config(function($routeProvider, TPL_PATH) {
     $routeProvider.when('/',{
