@@ -1,8 +1,8 @@
 # Angular RSS Reader
 
-LIVE DEMO: http://cmmartin.github.io/Angular-RSS-Reader/#/
-
 A responsive, client-side Angular.js sample application that implements a RSS Reader
+
+LIVE DEMO: http://cmmartin.github.io/Angular-RSS-Reader/#/
 
 Technologies:
 
@@ -14,27 +14,27 @@ Project files:
 
     /app
       index.html                  - project web root
-      /assets                     - dist folder of concatenated styles and scripts
+      /assets
         app.css                   - all css files concatenated
         app.js                    - all javascript files concatenated
-      /components                 - external libraries
+      /components
         angular.js
         jquery.js
         moment.js                 - date formatting
-      /scripts                    - javascript dev files
+      /scripts
         app.js                    - angular config
         homePage.js               - homePage module (ctrl, services, directives, filters)
-      /styles - css dev files
+      /styles
         app.css                   - application specific styles
         animation.css             - css animations
         bootstrap-theme.css       - my bootstrap overrides
         bootstrap.css             - Twitter Bootstrap
-      /templates                  - ng-view templates
+      /templates
         home.html                 - homePage html template
     /test
       karma-unit.conf.js          - karma unit test config
       protractor.conf.js          - protractor e2e test config
-      /unit - unit tests
+      /unit
         homePageSpec.js           - homePage module unit tests (16)
       /e2e
         homePageSpec.js           - homePage module e2e tests (TODO)
