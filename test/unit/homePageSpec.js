@@ -104,7 +104,7 @@ describe('Service: Feeds', function() {
       return {
         $promise: {
           then: function(callback) {
-            callback(mockResponse); // mock promise resolution
+            return callback(mockResponse); // mock promise resolution
           }
         }
       };

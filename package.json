@@ -27,6 +27,7 @@
     "karma": "~0.10.2",
     "protractor": "~0.14.0",
     "grunt-protractor-runner": "~0.1.6",
-    "grunt-shell-spawn": "~0.3.0"
+    "grunt-shell-spawn": "~0.3.0",
+    "karma-ng-html2js-preprocessor": "~0.1.0"
   }
 }
