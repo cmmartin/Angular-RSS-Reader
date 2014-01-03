@@ -6034,7 +6034,7 @@ td.visible-print {
  */
 
 body { 
-	padding: 50px 10px;
+	padding: 50px 0;
 	background-color: #f8f8f8;
 }
 
