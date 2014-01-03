@@ -32106,22 +32106,33 @@ google.loader.rpl({":scriptaculous":{"versions":{":1.8.3":{"uncompressed":"scrip
 
 /*
  * Feeds service
- * it should call FeedLoader.fetch on all FeedSources
+ * it should call FeedLoader.fetch on all FeedSources and return the result promise
  */
 .service('Feeds', function ($rootScope, FeedLoader, FeedSources, $q) {
 
-  this.get = function() {
-    var deferred = $q.defer(), feeds = [], numSources = FeedSources.length, i = 0;
+  var feeds = [];
 
-    for (; i < numSources; i++) {
-      FeedLoader.fetch({q: FeedSources[i].url, num: 10}, {}, function(response) {
-        feeds.push(response.responseData.feed);
-        if (feeds.length === numSources) deferred.resolve(feeds);
-      });
+  this.get = function() {
+
+    var deferred = $q.defer();
+
+    function getFeed(feed) {
+      return FeedLoader.fetch({q: feed.url, num: 10}, {}).$promise;
     }
+
+    function handleResponse(response) {
+      feeds.push(response.responseData.feed);
+      if (feeds.length === FeedSources.length) {
+        deferred.resolve(feeds); // all feeds fetched
+      }
+    }
+
+    for (var i = 0, ii = FeedSources.length; i < ii; i++) {
+      getFeed(FeedSources[i]).then(handleResponse);
+    }
+
     return deferred.promise;
   };
-
 })
 
 /*
@@ -32133,7 +32144,7 @@ google.loader.rpl({":scriptaculous":{"versions":{":1.8.3":{"uncompressed":"scrip
   return {
     restrict: 'E',
     template: '<div>' +
-                '<h5 class="feed-title">{{model.title}}</h5>' + 
+                '<h5 class="feed-title">{{model.title}}</h5>' +
                 '<div class="feed">' +
                   '<div class="entries" ng-repeat="entry in model.entries">' +
                     '<entry model="entry"></entry>' +
@@ -32153,13 +32164,13 @@ google.loader.rpl({":scriptaculous":{"versions":{":1.8.3":{"uncompressed":"scrip
  * it should set the background image
  * it should not set a background image with an invalid file extension
  */
-.directive('entry', function ($animate) {
+.directive('entry', function () {
   return {
     restrict: 'E',
     replace: true,
     template: '<div ng-click="select()" class="entry">' +
                 '<div class="entry-inner">' +
-                  '<h3 class="entry-title">{{model.title}}</h3>' + 
+                  '<h3 class="entry-title">{{model.title}}</h3>' +
                   '<p class="entry-preview">{{model.contentSnippet}}</p>' +
                   '<p>posted {{model.publishedDate |  timeago}}</p>' +
                 '</div>' +
@@ -32167,24 +32178,30 @@ google.loader.rpl({":scriptaculous":{"versions":{":1.8.3":{"uncompressed":"scrip
     scope: {
       model: '='
     },
-    link: function(scope, element, attrs) {
+    link: function(scope, element) {
+
+      var imgUrl,
+          fileExtension,
+          allowedExtensions = ['jpg', 'png', 'gif', 'jpeg'];
 
       scope.select = function() {
         scope.$emit('ENTRY_SELECTED', scope.model);
-      }
+      };
 
-      /* Insanity alert: The below code is only necessary due to the inconsistencies in providing
+      /* The below code is only necessary due to the inconsistencies in providing
        * image urls in RSS entries. First, we look for a designated image url, if none, we
-       * pull the first image's src from the entry's content. Finally, we check
+       * pull the first image's src from the entry's (html) content. Finally, we check
        * if the src has a valid image file extension to avoid displaying an ad
        */
-      var imgUrl = (scope.model.mediaGroups)
-            ? scope.model.mediaGroups[0].contents[0].url
-            : $(scope.model.content).find('img')[0].src,
-          allowedExtensions = ['jpg', 'png', 'gif', 'peg'],
-          fileExtension = imgUrl.slice(imgUrl.length - 3, imgUrl.length);
+      if (scope.model.mediaGroups) {
+        imgUrl = scope.model.mediaGroups[0].contents[0].url;
+      } else {
+        imgUrl = $(scope.model.content).find('img')[0].src;
+      }
 
-      if (allowedExtensions.indexOf(fileExtension) > -1) {
+      fileExtension = imgUrl.split('.').pop();
+
+      if (allowedExtensions.indexOf(fileExtension)) {
         $(element).css('background', 'url(' + imgUrl + ') center center');
       }
     }
@@ -32216,18 +32233,18 @@ google.loader.rpl({":scriptaculous":{"versions":{":1.8.3":{"uncompressed":"scrip
     scope: {
       model: '='
     },
-    link: function(scope, element, attrs) {
+    link: function(scope, element) {
 
       scope.$watch('model', function() {
         if (scope.model) {
-          // render as html
+          // render entry content as html
           element.find('.modal-body').html(scope.model.content);
         }
       });
 
       scope.deselect = function() {
         scope.$emit('ENTRY_DESELECTED');
-      }
+      };
     }
   };
 })
@@ -32238,10 +32255,7 @@ google.loader.rpl({":scriptaculous":{"versions":{":1.8.3":{"uncompressed":"scrip
     link: function(scope, element) {
       element.bind('click', function() {
         var el = document.documentElement,
-            request = el.requestFullScreen 
-                        || el.webkitRequestFullScreen 
-                        || el.mozRequestFullScreen
-                        || angular.noop; // browser not supported. do nothing
+            request = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen;
         request.call(el);
       });
     }
