@@ -52,7 +52,7 @@ angular.module('app.homePage', ['ngResource', 'ngAnimate'])
  * Feeds service
  * it should call FeedLoader.fetch on all FeedSources and return the result promise
  */
-.service('Feeds', function ($rootScope, FeedLoader, FeedSources, $q) {
+.service('Feeds', function (FeedLoader, FeedSources, $q) {
 
   var feeds = [];
 
@@ -145,7 +145,7 @@ angular.module('app.homePage', ['ngResource', 'ngAnimate'])
 
       fileExtension = imgUrl.split('.').pop();
 
-      if (allowedExtensions.indexOf(fileExtension)) {
+      if (allowedExtensions.indexOf(fileExtension) > -1) {
         $(element).css('background', 'url(' + imgUrl + ') center center');
       }
     }
