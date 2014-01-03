@@ -1,6 +1,6 @@
 # Angular RSS Reader
 
-A responsive, client-side Angular.js sample application that implements a RSS Reader
+A unit-tested, Angular.js sample application that implements a RSS Reader
 
 LIVE DEMO: http://cmmartin.github.io/Angular-RSS-Reader/#/
 
@@ -45,9 +45,13 @@ Project files:
 2. `npm install`
 3. `grunt install`
 
+## Production
+
+`grunt concat` - concatenate js and css files specified in Gruntfile.js
+
 ## Development
 
-1. `grunt dev`
+1. `grunt dev` -  automatically runs concat and refreshes browser on source file save
 2. Go to: `http://localhost:8888`
 
 ## Testing
