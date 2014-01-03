@@ -6,9 +6,9 @@
  */
 describe('Controller: HomeCtrl', function() {
 
-  var scope, 
-      $httpBackend, 
-      ctrl, 
+  var scope,
+      ctrl,
+      $httpBackend,
       sampleEntry = {sample: 'entry'};
 
   var MockFeedsService = function() {
@@ -47,7 +47,6 @@ describe('Controller: HomeCtrl', function() {
     scope.$broadcast('ENTRY_DESELECTED');
     expect(scope.selectedEntry).toBe(null);
   });
-
 });
 
 /*
@@ -94,9 +93,21 @@ describe('Service: FeedLoader', function() {
  */
 describe('Service: Feeds', function() {
 
+  var mockResponse = {
+    responseData: {
+      feed: {'sample': 'feed'}
+    }
+  };
+
   var MockFeedLoaderService = function() {
-    this.fetch = function(irrelevant, irrelevant, callback) {
-      callback({'responseData': {'feed': 'sample feed'}});
+    this.fetch = function() {
+      return {
+        $promise: {
+          then: function(callback) {
+            callback(mockResponse); // mock promise resolution
+          }
+        }
+      };
     }
   };
 
@@ -178,7 +189,7 @@ describe('Directive: entry', function() {
     mediaGroups: [
       {
         contents: [
-          {url: 'http://sample.com/picture.png'}
+          {url: 'http://sample.com/picture.jpeg'}
         ]
       }
     ]
@@ -199,7 +210,7 @@ describe('Directive: entry', function() {
   });
 
   it('should set the background image', function() {
-    expect(element.css('background')).toContain('http://sample.com/picture.png');
+    expect(element.css('background')).toContain('http://sample.com/picture.jpeg');
   });
 
   it('should not set a background image with an invalid file extension', function() {
@@ -207,12 +218,11 @@ describe('Directive: entry', function() {
     scope.$digest();
     expect(element.css('background')).not.toContain('http://sample.com/notanimage');
   });
-
 });
 
 /*
  * modal directive
- * it should be hidden
+ * it should be hidden when there is no selected entry
  * it should be shown when an entry is selected
  * it should display the title and content of the entry
  */
